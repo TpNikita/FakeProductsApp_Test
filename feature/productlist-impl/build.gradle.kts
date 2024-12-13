@@ -44,12 +44,13 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.material3.android)
-    //implementation(libs.androidx.material3)
+    implementation(libs.coilCompose)
+    implementation(libs.coilOkHttp)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    
     implementation(project(":core:di"))
     implementation(project(":core:feature-api"))
 
@@ -57,5 +58,8 @@ dependencies {
 
     implementation(project(":feature:favoriteproducts-api"))
     implementation(project(":feature:productcard-api"))
+
+    implementation(project(":feature:productcard-api"))
+
     kapt(libs.dagger2Compiler)
 }
