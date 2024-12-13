@@ -5,7 +5,7 @@ import com.example.di.CoreComponent
 import com.example.di.NetworkModule
 import com.example.productlist_impl.di.modules.ProductLIstDataModule
 import com.example.productlist_impl.navigation.ProductListImpl
-import com.example.productlist_impl.presentation.ProductListViewModel
+import com.example.productlist_impl.presentation.viewModel.ProductListViewModel
 import dagger.Component
 
 @Component(modules = [NetworkModule::class, ProductLIstDataModule::class])

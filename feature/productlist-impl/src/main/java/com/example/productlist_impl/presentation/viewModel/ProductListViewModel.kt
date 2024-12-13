@@ -1,4 +1,4 @@
-package com.example.productlist_impl.presentation
+package com.example.productlist_impl.presentation.viewModel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

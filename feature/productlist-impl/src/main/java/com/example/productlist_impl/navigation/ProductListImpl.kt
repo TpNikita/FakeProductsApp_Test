@@ -9,7 +9,7 @@ import com.example.di.daggerViewModel
 import com.example.productlist_api.ProductListApi
 import com.example.productlist_impl.di.ProductListComponent
 import com.example.productlist_impl.presentation.ProductListScreen
-import com.example.productlist_impl.presentation.ProductListViewModel
+import com.example.productlist_impl.presentation.viewModel.ProductListViewModel
 
 private const val baseRoute = "product_list"
 private const val scenarioABRoute = "$baseRoute/scenario"

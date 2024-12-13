@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.example.productlist_impl.presentation.viewModel.ProductListViewModel
 
 
 @Composable
@@ -58,6 +60,9 @@ fun productItem(title: String, price: String, url: String, description: String) 
             Column {
                 Text(text = title, style = MaterialTheme.typography.titleMedium)
                 Text(text = price, style = MaterialTheme.typography.bodyMedium, color = Color.Gray)
+                Button(onClick = { /*TODO*/ }) {
+                    Text(text = "Добавить в избранное")
+                }
             }
         }
     }
