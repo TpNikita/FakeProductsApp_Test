@@ -1,5 +1,6 @@
 package com.example.productlist_impl.di.modules
 
+import com.example.data.Database
 import com.example.productlist_impl.data.ProductListService
 import com.example.productlist_impl.data.repository.ProductListRepositoryImpl
 import com.example.productlist_impl.domain.IProductListRepository
@@ -25,8 +26,9 @@ class ProductLIstDataModule {
 
     @Provides
     fun provideProductListRepository(
-        productListService: ProductListService
+        productListService: ProductListService,
+        productDataBase: Database
     ): IProductListRepository {
-        return ProductListRepositoryImpl(productListService)
+        return ProductListRepositoryImpl(productListService, database = productDataBase)
     }
 }
