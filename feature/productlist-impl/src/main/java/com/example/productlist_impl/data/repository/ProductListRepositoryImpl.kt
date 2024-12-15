@@ -12,6 +12,13 @@ class ProductListRepositoryImpl @Inject constructor(
     private val database: Database
 ) :
     IProductListRepository {
+
+    /**
+     * В приоритетном порядке список элементов запрашивается у бэка,
+     * если по какой то причине произошла ошибка, то список запрашивается у БД.
+     * При этом в соответствии с стратегией вставки для Insert(NONE),
+     * в room будут добавляться только те элементы, ID которых еще нет в БД.
+     */
     override suspend fun getAllProducts(): List<ProductResponse> {
         try {
             val result = productListService.getAllProducts()
@@ -22,7 +29,8 @@ class ProductListRepositoryImpl @Inject constructor(
                     price = it.price,
                     category = it.category,
                     description = it.description,
-                    image = it.image
+                    image = it.image,
+                    isFavorite = false
                 )
             })
             return result
@@ -34,9 +42,16 @@ class ProductListRepositoryImpl @Inject constructor(
                     price = it.price,
                     category = it.category,
                     description = it.description,
-                    image = it.image
+                    image = it.image,
+                    isFavorite = it.isFavorite
                 )
             }
         }
+    }
+
+    override suspend fun doProductFavorite(productId: Int) {
+        val productForChange = database.productDao().getProductById(productId)
+        val updatedProductEntity = productForChange.copy(isFavorite = true)
+        database.productDao().updateProduct(updatedProductEntity)
     }
 }

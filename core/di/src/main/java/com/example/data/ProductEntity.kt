@@ -12,4 +12,5 @@ data class ProductEntity(
     @ColumnInfo(name = "category") val category: String,
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "image") val image: String,
+    @ColumnInfo(name = "isFavorite") val isFavorite: Boolean,
 )

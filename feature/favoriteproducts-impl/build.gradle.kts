@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -42,6 +43,8 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.coilCompose)
+    implementation(libs.coilOkHttp)
     //implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -55,5 +58,5 @@ dependencies {
     implementation(project(":feature:favoriteproducts-api"))
     implementation(project(":feature:productcard-api"))
 
-
+    kapt(libs.dagger2Compiler)
 }

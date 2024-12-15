@@ -3,6 +3,7 @@ package com.example.productlist_impl.presentation.viewModel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.productlist_impl.domain.usecase.DoProductFavoriteUseCase
 import com.example.productlist_impl.domain.usecase.GetAllProductsUseCase
 import com.example.productlist_impl.presentation.models.ProductListState
 import com.example.productlist_impl.presentation.models.ProductUIModel
@@ -12,12 +13,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ProductListViewModel @Inject constructor(
-    private val getAllProductsUseCase: GetAllProductsUseCase
+    private val getAllProductsUseCase: GetAllProductsUseCase,
+    private val doProductFavoriteUseCase: DoProductFavoriteUseCase
 ) : ViewModel() {
 
-init {
-    loadAllProducts()
-}
+    init {
+        loadAllProducts()
+    }
+
     val state = mutableStateOf(ProductListState(emptyList()))
 
     private fun loadAllProducts() {
@@ -31,9 +34,16 @@ init {
                     price = it.price,
                     category = it.category,
                     description = it.description,
-                    image = it.image
+                    image = it.image,
+                    isFavorite = it.isFavorite
                 )
             })
+        }
+    }
+
+     fun doProductFavorite(productId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            doProductFavoriteUseCase.doProductFavorite(productId)
         }
     }
 }

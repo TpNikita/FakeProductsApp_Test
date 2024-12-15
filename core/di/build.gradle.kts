@@ -50,6 +50,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     api("androidx.room:room-runtime:2.5.2")
+    api("androidx.room:room-ktx:2.5.2")
     ksp("androidx.room:room-compiler:2.5.2")
 
     implementation(project(":feature:productlist-api"))

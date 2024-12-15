@@ -15,7 +15,8 @@ class GetAllProductsUseCase @Inject constructor(
                 price = it.price,
                 category = it.category,
                 description = it.description,
-                image = it.image
+                image = it.image,
+                isFavorite = it.isFavorite
             )
         }
     }

@@ -1,4 +1,4 @@
-package com.example.productlist_impl.domain.models
+package com.example.favoriteproducts_impl.domain.models
 
 data class Product(
     val id: Int,

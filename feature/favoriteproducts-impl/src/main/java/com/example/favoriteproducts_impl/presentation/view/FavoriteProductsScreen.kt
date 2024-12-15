@@ -1,4 +1,4 @@
-package com.example.productlist_impl.presentation
+package com.example.favoriteproducts_impl.presentation.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,30 +19,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import com.example.favoriteproducts_impl.presentation.viewModel.FavoriteProductViewModel
 import coil3.compose.AsyncImage
-import com.example.productlist_impl.presentation.viewModel.ProductListViewModel
 
 @Composable
-internal fun ProductListScreen(
-    modifier: Modifier,
-    onNavigateToABFlow: () -> Unit,
-    viewModel: ProductListViewModel
-) {
+fun FavoriteProductsScreen(modifier: Modifier, viewModel: FavoriteProductViewModel) {
+
+    viewModel.loadAllFavoriteProduct()
+
     val state = remember {
         viewModel.state
     }
+
     LazyColumn(Modifier.padding(bottom = 48.0.dp)) {
         state.value.productList.forEach {
             item {
-                productItem(
-                    viewModel,
-                    it.id,
-                    it.title,
-                    it.price,
-                    it.image,
-                    it.description,
-                    it.isFavorite
-                )
+                productItem(viewModel, it.id, it.title, it.price, it.image, it.description)
             }
         }
     }
@@ -50,13 +42,12 @@ internal fun ProductListScreen(
 
 @Composable
 fun productItem(
-    viewModel: ProductListViewModel,
+    viewModel: FavoriteProductViewModel,
     id: Int,
     title: String,
     price: String,
     url: String,
-    description: String,
-    isFavorite: Boolean
+    description: String
 ) {
     Card(
         modifier = Modifier
@@ -75,13 +66,10 @@ fun productItem(
             Column {
                 Text(text = title, style = MaterialTheme.typography.titleMedium)
                 Text(text = price, style = MaterialTheme.typography.bodyMedium, color = Color.Gray)
-
-                if (!isFavorite) {
-                    Button(onClick = { viewModel.doProductFavorite(id) }) {
-                        Text(text = "Добавить в избранное")
-                    }
-                } else {
-                    Text(text = "Добавлено в избранное")
+                Button(onClick = {
+                    viewModel.removeProductFromFavorites(id)
+                }) {
+                    Text(text = "Удалить из избранного")
                 }
             }
         }

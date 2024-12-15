@@ -7,4 +7,5 @@ data class ProductResponse (
     val category: String,
     val description: String,
     val image: String,
+    val isFavorite:Boolean
 )
