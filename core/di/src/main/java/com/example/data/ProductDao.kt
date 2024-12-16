@@ -12,7 +12,7 @@ interface ProductDao {
     @Query("SELECT * FROM productEntity")
     fun getAll(): Flow<List<ProductEntity>>
 
-    @Query("SELECT * FROM productEntity WHERE isFavorite = true")
+    @Query("SELECT * FROM productEntity WHERE isFavorite = 1")
     fun getAllFavoriteProduct(): Flow<List<ProductEntity>>
 
     @Query("SELECT * FROM productEntity WHERE id = :productId")
