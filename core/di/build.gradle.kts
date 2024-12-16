@@ -48,17 +48,19 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    api("androidx.room:room-runtime:2.5.2")
-    api("androidx.room:room-ktx:2.5.2")
+    api(libs.coilCompose)
+    api(libs.coilOkHttp)
+    api(libs.roomRuntime)
+    api(libs.roomKtx)
+    api(libs.square)
+    api(libs.converterGson)
+    api(libs.dagger2)
     ksp("androidx.room:room-compiler:2.5.2")
+    kapt(libs.dagger2Compiler)
 
     implementation(project(":feature:productlist-api"))
     implementation(project(":feature:productcard-api"))
     implementation(project(":feature:favoriteproducts-api"))
 
-    api(libs.square)
-    api(libs.converterGson)
-    api(libs.dagger2)
-    kapt(libs.dagger2Compiler)
+
 }

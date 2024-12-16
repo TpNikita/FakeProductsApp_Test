@@ -41,8 +41,8 @@ class ProductListImpl : ProductListApi {
 
             ProductListScreen(
                 modifier = modifier,
-                onNavigateToABFlow = {
-                    navController.navigate(scenarioABRoute)
+                onNavigateToProductCard = {
+                    navController.navigate(route="product_card/$it" )
                 },
                 viewModel
             )

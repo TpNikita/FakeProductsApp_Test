@@ -23,7 +23,11 @@ import com.example.favoriteproducts_impl.presentation.viewModel.FavoriteProductV
 import coil3.compose.AsyncImage
 
 @Composable
-fun FavoriteProductsScreen(modifier: Modifier, viewModel: FavoriteProductViewModel) {
+fun FavoriteProductsScreen(
+    modifier: Modifier,
+    viewModel: FavoriteProductViewModel,
+    onNavigateToProductCard: (Int) -> Unit,
+) {
 
     viewModel.loadAllFavoriteProduct()
 
@@ -34,7 +38,15 @@ fun FavoriteProductsScreen(modifier: Modifier, viewModel: FavoriteProductViewMod
     LazyColumn(Modifier.padding(bottom = 48.0.dp)) {
         state.value.productList.forEach {
             item {
-                productItem(viewModel, it.id, it.title, it.price, it.image, it.description)
+                productItem(
+                    viewModel,
+                    onNavigateToProductCard,
+                    it.id,
+                    it.title,
+                    it.price,
+                    it.image,
+                    it.description
+                )
             }
         }
     }
@@ -43,6 +55,7 @@ fun FavoriteProductsScreen(modifier: Modifier, viewModel: FavoriteProductViewMod
 @Composable
 fun productItem(
     viewModel: FavoriteProductViewModel,
+    onNavigateToProductCard: (Int) -> Unit,
     id: Int,
     title: String,
     price: String,
@@ -53,6 +66,7 @@ fun productItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
+        onClick = { onNavigateToProductCard.invoke(id) }
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
@@ -64,12 +78,12 @@ fun productItem(
             )
             Spacer(modifier = Modifier.width(16.dp))
             Column {
-                Text(text = title, style = MaterialTheme.typography.titleMedium)
-                Text(text = price, style = MaterialTheme.typography.bodyMedium, color = Color.Gray)
+                Text(text = title, style = MaterialTheme.typography.titleLarge)
+                Text(text = price, style = MaterialTheme.typography.bodyLarge, color = Color.Gray)
                 Button(onClick = {
                     viewModel.removeProductFromFavorites(id)
                 }) {
-                    Text(text = "Удалить из избранного")
+                    Text(text = "Удалить из избранного", style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }

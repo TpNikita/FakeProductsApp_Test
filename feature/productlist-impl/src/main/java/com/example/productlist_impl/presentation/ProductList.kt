@@ -25,7 +25,7 @@ import com.example.productlist_impl.presentation.viewModel.ProductListViewModel
 @Composable
 internal fun ProductListScreen(
     modifier: Modifier,
-    onNavigateToABFlow: () -> Unit,
+    onNavigateToProductCard: (Int) -> Unit,
     viewModel: ProductListViewModel
 ) {
 
@@ -39,6 +39,7 @@ internal fun ProductListScreen(
             item {
                 productItem(
                     viewModel,
+                    onNavigateToProductCard,
                     it.id,
                     it.title,
                     it.price,
@@ -54,17 +55,21 @@ internal fun ProductListScreen(
 @Composable
 fun productItem(
     viewModel: ProductListViewModel,
+    onNavigateToProductCard: (Int) -> Unit,
     id: Int,
     title: String,
     price: String,
     url: String,
     description: String,
-    isFavorite: Boolean
+    isFavorite: Boolean,
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
+        onClick = {
+            onNavigateToProductCard.invoke(id)
+        }
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
@@ -76,15 +81,18 @@ fun productItem(
             )
             Spacer(modifier = Modifier.width(16.dp))
             Column {
-                Text(text = title, style = MaterialTheme.typography.titleMedium)
-                Text(text = price, style = MaterialTheme.typography.bodyMedium, color = Color.Gray)
+                Text(text = title, style = MaterialTheme.typography.titleLarge)
+                Text(text = price, style = MaterialTheme.typography.bodyLarge, color = Color.Gray)
 
                 if (!isFavorite) {
                     Button(onClick = { viewModel.doProductFavorite(id) }) {
-                        Text(text = "Добавить в избранное")
+                        Text(
+                            text = "Добавить в избранное",
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                     }
                 } else {
-                    Text(text = "Добавлено в избранное")
+                    Text(text = "Добавлено в избранное", style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }

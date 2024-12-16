@@ -34,7 +34,12 @@ class FavoriteProductsImpl : FavoriteProductsApi {
                 favoriteProductComponent!!.getFavoriteProductViewModels()
             }
 
-            FavoriteProductsScreen(modifier = modifier, viewModel)
+            FavoriteProductsScreen(
+                modifier = modifier, viewModel,
+                onNavigateToProductCard = {
+                    navController.navigate(route = "product_card/$it")
+                },
+            )
         }
     }
 }
