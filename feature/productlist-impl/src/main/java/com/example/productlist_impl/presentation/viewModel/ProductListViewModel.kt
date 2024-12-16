@@ -9,6 +9,7 @@ import com.example.productlist_impl.presentation.models.ProductListState
 import com.example.productlist_impl.presentation.models.ProductUIModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,31 +18,29 @@ class ProductListViewModel @Inject constructor(
     private val doProductFavoriteUseCase: DoProductFavoriteUseCase
 ) : ViewModel() {
 
-    init {
-        loadAllProducts()
-    }
-
     val state = mutableStateOf(ProductListState(emptyList()))
 
-    private fun loadAllProducts() {
+    fun loadAllProducts() {
         viewModelScope.launch {
-            val job1 = async(Dispatchers.IO) { getAllProductsUseCase.getAllProducts() }
-            val result = job1.await()
-            state.value = ProductListState(productList = result.map {
-                ProductUIModel(
-                    id = it.id,
-                    title = it.title,
-                    price = it.price,
-                    category = it.category,
-                    description = it.description,
-                    image = it.image,
-                    isFavorite = it.isFavorite
-                )
-            })
+            val resultAsync = async(Dispatchers.IO) { getAllProductsUseCase.getAllProducts() }
+            val resultAfterAwait = resultAsync.await()
+            resultAfterAwait.collectLatest { productList ->
+                state.value = ProductListState(productList = productList.map {
+                    ProductUIModel(
+                        id = it.id,
+                        title = it.title,
+                        price = it.price,
+                        category = it.category,
+                        description = it.description,
+                        image = it.image,
+                        isFavorite = it.isFavorite
+                    )
+                })
+            }
         }
     }
 
-     fun doProductFavorite(productId: Int) {
+    fun doProductFavorite(productId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             doProductFavoriteUseCase.doProductFavorite(productId)
         }

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface ProductDao {
 
     @Query("SELECT * FROM productEntity")
-    fun getAll(): List<ProductEntity>
+    fun getAll(): Flow<List<ProductEntity>>
 
     @Query("SELECT * FROM productEntity WHERE isFavorite = true")
     fun getAllFavoriteProduct(): Flow<List<ProductEntity>>

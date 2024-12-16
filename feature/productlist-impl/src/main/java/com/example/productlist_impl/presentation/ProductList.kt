@@ -28,6 +28,9 @@ internal fun ProductListScreen(
     onNavigateToABFlow: () -> Unit,
     viewModel: ProductListViewModel
 ) {
+
+    viewModel.loadAllProducts()
+
     val state = remember {
         viewModel.state
     }

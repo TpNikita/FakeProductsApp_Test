@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">FakeProductsApp</string>
-    <string name="products">Products</string>
-    <string name="favorite">Favorite</string>
+    <string name="products">Продукты</string>
+    <string name="favorite">Избранное</string>
 </resources>
